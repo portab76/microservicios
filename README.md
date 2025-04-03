@@ -2,7 +2,7 @@
 
 ## Sistema de monitoreo de cámaras usando una arquitectura de microservicios
 
-** Microservicios Necesarios:
+** Microservicios Necesarios:**
 - Servicio de Autenticación (Java Spring Boot)
 - Servicio de Gestión de Usuarios (Java Spring Boot)
 - Servicio de Cámaras (Python)
