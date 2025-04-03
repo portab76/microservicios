@@ -63,7 +63,7 @@ Responses:
 curl -X GET http://localhost:8080/auth/validate \
   -H "Authorization: Bearer [token]"
 
-##🐳 Docker
+## 🐳 Docker
 
 **Construir imagen:
 docker build -t auth-service .
@@ -76,8 +76,7 @@ docker run -p 8080:8080 \
   auth-service
 🧪 Testing
 
-
-##📦 Estructura del Proyecto
+## 📦 Estructura del Proyecto
 ```
 src/
 ├── main/
