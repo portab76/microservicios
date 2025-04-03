@@ -1,0 +1,161 @@
+version: '3.8'
+
+services:
+  # Infraestructura
+  zookeeper:
+    image: bitnami/zookeeper:latest
+    ports:
+      - "2181:2181"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    networks:
+      - camaras-network
+    volumes:
+      - zookeeper_data:/bitnami/zookeeper
+
+  kafka:
+    image: bitnami/kafka:latest
+    ports:
+      - "9092:9092"
+      - "9093:9093"
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,PLAINTEXT_HOST://:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:9093
+      - KAFKA_AUTO_CREATE_TOPICS_ENABLE=true
+    depends_on:
+      - zookeeper
+    networks:
+      - camaras-network
+    volumes:
+      - kafka_data:/bitnami/kafka
+
+  # Bases de datos
+    db-auth:
+      image: mysql:8.0
+      environment:
+        MYSQL_DATABASE: authdb
+        MYSQL_USER: root
+        MYSQL_PASSWORD: 
+        MYSQL_ROOT_PASSWORD: 
+      ports:
+        - "3306:3306"
+      volumes:
+        - auth-data:/var/lib/mysql
+      networks:
+        - camaras-network
+      healthcheck:
+        test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+        interval: 5s
+        timeout: 5s
+        retries: 5
+
+  db-tracking:
+    image: mongo:5.0
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+    networks:
+      - camaras-network
+    volumes:
+      - tracking-data:/data/db
+    ports:
+      - "27017:27017"
+
+  # Microservicios
+  auth-service:
+    build: ./auth-service
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_URL=jdbc:postgresql://db-auth:5432/authdb
+      - DB_USER=admin
+      - DB_PASSWORD=secret
+      - JWT_SECRET=mysecretkey
+      - JWT_EXPIRATION=86400
+    depends_on:
+      db-auth:
+        condition: service_healthy
+    networks:
+      - camaras-network
+
+  camera-service:
+    build: ./camera-service
+    ports:
+      - "8000:8000"
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - CAMERA_CHECK_INTERVAL=30
+    volumes:
+      - ./camera-service/app:/app
+    depends_on:
+      - kafka
+    networks:
+      - camaras-network
+
+  monitoring-service:
+    build: ./monitoring-service
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - CAMERA_LIST=spcam32_1:192.168.1.100,spcam32_2:192.168.1.101
+    depends_on:
+      - kafka
+    networks:
+      - camaras-network
+
+  tracking-service:
+    build: ./tracking-service
+    ports:
+      - "3001:3001"
+    environment:
+      - MONGODB_URI=mongodb://admin:secret@db-tracking:27017
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+    depends_on:
+      - db-tracking
+      - kafka
+    networks:
+      - camaras-network
+
+  notification-service:
+    build: ./notification-service
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - SMTP_HOST=smtp.example.com
+      - SMTP_PORT=587
+    depends_on:
+      - kafka
+    networks:
+      - camaras-network
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "3000:3000"
+    depends_on:
+      - auth-service
+      - camera-service
+    networks:
+      - camaras-network
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - api-gateway
+    networks:
+      - camaras-network
+
+# Volúmenes para persistencia de datos
+volumes:
+  zookeeper_data:
+  kafka_data:
+  auth-data:
+  tracking-data:
+
+# Red para comunicación entre servicios
+networks:
+  camaras-network:
+    driver: bridge
