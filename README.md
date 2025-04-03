@@ -2,15 +2,15 @@
 
 ## Sistema de monitoreo de cámaras usando una arquitectura de microservicios
 
-**Microservicios Necesarios
-Servicio de Autenticación (Java Spring Boot)
-Servicio de Gestión de Usuarios (Java Spring Boot)
-Servicio de Cámaras (Python)
-Driver SPcam32 (Python)
-Servicio de Notificaciones (PHP)
-Servicio de Almacenamiento (Python)
-API Gateway (Node.js)
-Frontend (React/Vue)
+** Microservicios Necesarios:
+- Servicio de Autenticación (Java Spring Boot)
+- Servicio de Gestión de Usuarios (Java Spring Boot)
+- Servicio de Cámaras (Python)
+- Driver SPcam32 (Python)
+- Servicio de Notificaciones (PHP)
+- Servicio de Almacenamiento (Python)
+- API Gateway (Node.js)
+- Frontend (React/Vue)
 
 
 ```
