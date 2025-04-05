@@ -2,8 +2,8 @@
     "db_config": {
         "host": "localhost",
         "user": "root",
-        "password": "",
-        "database": "authdb",
+        "password": "root123",
+        "database": "camerasdb",
 		"port": 3306
     },
 	"kafka_config": {
