@@ -1,0 +1,17 @@
+{
+    "db_config": {
+        "host": "localhost",
+        "user": "root",
+        "password": "",
+        "database": "authdb",
+		"port": 3306
+    },
+	"kafka_config": {
+		"bootstrap_servers": "localhost:9092",
+		"topic": "camera-status-updates"
+	},
+	"mock_kafka": false,
+    "scan_interval": 60,
+    "camera_timeout": 5,
+    "log_level": "INFO"
+}

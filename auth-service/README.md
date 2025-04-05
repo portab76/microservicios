@@ -1,25 +1,25 @@
  # Auth-Service
 
-Microservicio de autenticación JWT para sistemas distribuidos
+Microservicio de autenticaci��n JWT para sistemas distribuidos
 
-## 📝 Descripción
+## Descripci��n
 
 Servicio Spring Boot que provee:
-- Autenticación basada en JWT
-- Validación de tokens
-- Integración con bases de datos MySQL
-- Configuración para entornos Docker/Kubernetes
+- Autenticaci��n basada en JWT
+- Validaci��n de tokens
+- Integraci��n con bases de datos MySQL
+- Configuraci��n para entornos Docker/Kubernetes
 
-## 🚀 Requisitos
+## Requisitos
 
 - Java 17+
 - MySQL 8.0+
 - Maven 3.8+
 - Docker (opcional)
 
-## 📚 API Endpoints
+## API Endpoints
 
-Pruebas Básicas con Postman
+Pruebas B��sicas con Postman
 
 ### Autentica un usuario y genera token JWT
 
@@ -32,7 +32,7 @@ Content-Type: application/json
 }
 ```
 Response:
-200 OK (token válido)
+200 OK (usuario v��lido)
 ```
 json
 {
@@ -42,7 +42,7 @@ json
   "email": "string"
 }
 ```
-400 Bad Request (usuario contraseña inválido)
+400 Bad Request (usuario contrase?a inv��lido)
 
 curl -X POST http://localhost:8080/auth/login \
   -H "Content-Type: application/json" \
@@ -50,44 +50,27 @@ curl -X POST http://localhost:8080/auth/login \
   
 ### Valida un token JWT
 
-Se pasa el token JWT como parámetro "Authorization" en el encabezado de la solicitud (header).
+Se pasa el token JWT como par��metro "Authorization" en el encabezado de la solicitud (header).
 
 http://localhost:8080/auth/validate
 
 Responses:
 
-200 OK (token válido)
+200 OK (token v��lido)
 
-400 Bad Request (token inválido)
+400 Bad Request (token inv��lido)
 
 curl -X GET http://localhost:8080/auth/validate \
   -H "Authorization: Bearer [token]"
 
-## 🐳 Docker
+## Docker
 
-**Construir imagen:
+**Compilar Proyecto
+mvn clean package
+
+**Construir contenedor:
 docker build -t auth-service .
 
 **Ejecutar contenedor:
-docker run -p 8080:8080 \
-  -e SPRING_DATASOURCE_URL=jdbc:mysql://host.docker.internal:3306/authdb \
-  -e SPRING_DATASOURCE_USERNAME=admin \
-  -e SPRING_DATASOURCE_PASSWORD=secret \
-  auth-service
-🧪 Testing
+docker run -d -p 8080:8080 --name auth-service -e SPRING_DATASOURCE_URL=jdbc:mysql://host.docker.internal:3306/camerasdb -e SPRING_DATASOURCE_USERNAME=root -e SPRING_DATASOURCE_PASSWORD=root123 auth-service
 
-## 📦 Estructura del Proyecto
-```
-src/
-├── main/
-│   ├── java/
-│   │   └── com/proyectocamaras/auth/
-│   │       ├── config/       # Configuraciones Spring
-│   │       ├── controller/   # Controladores REST
-│   │       ├── model/        # Entidades JPA
-│   │       ├── repository/   # Repositorios Spring Data
-│   │       ├── security/     # Configuración de seguridad
-│   │       └── service/      # Lógica de negocio
-│   └── resources/            # Properties y configs
-└── test/                     # Pruebas unitarias
-```

@@ -1,0 +1,13 @@
+2025-04-05 14:42:22,077 - kafka.conn - INFO - <BrokerConnection client_id=kafka-python-producer-1, node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+2025-04-05 14:42:22,086 - kafka.conn - INFO - <BrokerConnection client_id=kafka-python-producer-1, node_id=bootstrap-0 host=localhost:9092 <checking_api_versions_recv> [IPv6 ('::1', 9092, 0, 0)]>: Broker version identified as 2.6
+2025-04-05 14:42:22,087 - kafka.conn - INFO - <BrokerConnection client_id=kafka-python-producer-1, node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+2025-04-05 14:42:22,088 - CameraDiscoveryService - INFO - Productor Kafka inicializado correctamente
+2025-04-05 14:42:22,099 - CameraDiscoveryService - INFO - Conexión a MySQL verificada correctamente
+2025-04-05 14:42:22,100 - CameraDiscoveryService - INFO - Servicio iniciado correctamente
+2025-04-05 14:42:22,199 - kafka.conn - INFO - <BrokerConnection client_id=kafka-python-producer-1, node_id=1 host=kafka:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]>: connecting to kafka:9092 [('127.0.0.1', 9092) IPv4]
+2025-04-05 14:42:22,201 - kafka.conn - INFO - <BrokerConnection client_id=kafka-python-producer-1, node_id=1 host=kafka:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: Connection complete.
+2025-04-05 14:42:22,211 - kafka.conn - INFO - <BrokerConnection client_id=kafka-python-producer-1, node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+2025-04-05 14:42:22,217 - CameraDiscoveryService - INFO - Estado de la cámara 1 publicado: offline
+2025-04-05 14:42:22,220 - CameraDiscoveryService - INFO - Estado de la cámara 2 publicado: offline
+2025-04-05 14:42:25,623 - CameraDiscoveryService - INFO - Servicio detenido manualmente
+2025-04-05 14:42:25,626 - kafka.conn - INFO - <BrokerConnection client_id=kafka-python-producer-1, node_id=1 host=kafka:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: Closing connection. 

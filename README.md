@@ -13,6 +13,7 @@ Microservicios Necesarios:
 - Frontend (React/Vue)
 
 
+
 ```
 [Frontend] ←→ [API Gateway] ←→ [Autenticación] ←→ [Gestión de Usuarios]
                       ↑
@@ -23,3 +24,5 @@ Microservicios Necesarios:
       ↓                     |
 [Driver SPcam32]        [Base de Datos]
 ```
+
+Primero arrancar el servicio de base de datos.
