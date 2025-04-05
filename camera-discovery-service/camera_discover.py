@@ -167,7 +167,8 @@ class CameraDiscoveryService:
     def check_camera_status(self, camera):
         #implementación de la lógica para chequear el estado de la camara.
         try:
-            response = requests.get(camera["image_url"], timeout = self.camera_timeout)
+            url = f"http://{camera['ip_address']}"
+            response = requests.get(url, timeout = self.camera_timeout)
             if response.status_code == 200:
                 return "online"
             else:
