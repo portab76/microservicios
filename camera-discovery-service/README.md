@@ -1,28 +1,28 @@
 
 ### Docker zookeeper y kafka:
 
-**Arrancar contenedor docker-compose.yml**
+Arrancar contenedor docker-compose.yml
 ```
 docker-compose up -d
 ```
 
-**Para contenedor**
+Para contenedor
 ```
 docker-compose down -v
 ```
 
-**Ver todos los contenedores:**
+Ver todos los contenedores:
 ```
 docker ps -a
 ```
 
-**Ver log de consola contenedor**
+Ver log de consola contenedor
 ```
 docker logs zookeeper
 docker logs kafka
 ```
 
-** Eliminar completamente un contenedor 
+Eliminar completamente un contenedor 
 ```
 docker ps -a
 docker volume ls
@@ -33,18 +33,18 @@ docker volume rm [nombre-volumen]
 
 ### Prueba Básica (Producir/Consumir Mensajes):
  
-**Entrar al contenedor de Kafka**
+Entrar al contenedor de Kafka
 ```
 docker exec -it kafka bash
 docker exec -it database-service-mysql_db-1 bash
 ```
 
-**Lista todos los topics en el cluster de Kafka:**
+Lista todos los topics en el cluster de Kafka:
 ```
 kafka-topics --list --bootstrap-server kafka:9092
 ```
 
-**Crear un tema de prueba**
+Crear un tema de prueba
 ```
 kafka-topics --create \
   --bootstrap-server kafka:9092 \
@@ -53,12 +53,12 @@ kafka-topics --create \
   --topic camera-status-updates
  ```
   
-**Verificar que el tema se creó**
+Verificar que el tema se creó
 ```
 kafka-topics --list --bootstrap-server kafka:9092
 ```
 
-**Producir mensajes (desde dentro del contenedor)**
+Producir mensajes (desde dentro del contenedor)
 ```
 kafka-console-producer \
   --broker-list kafka:9092 \
@@ -66,7 +66,7 @@ kafka-console-producer \
   ```
 Escribe algunos mensajes (ej: Hola Kafka!) y presiona Ctrl+C para salir.
 
-**Consumir mensajes (desde dentro del contenedor)**
+Consumir mensajes (desde dentro del contenedor)
 ```
 kafka-console-consumer \
   --bootstrap-server kafka:9092 \
